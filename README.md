@@ -1,4 +1,4 @@
-# Unity Importer
+# s&box Unity Importer
 This tool allows you to import Unity Packages (.unitypackage) into s&box.
 When importing, there is an option that will try to convert the materials (currently only supporting the main texture and colour tint).
 
