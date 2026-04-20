@@ -37,7 +37,7 @@ public static class UnityPackageExtractor
 			string pathnameFile = Path.Combine( dir, "pathname" );
 			if ( !File.Exists( pathnameFile ) ) continue;
 
-			string path = File.ReadAllText( pathnameFile ).Replace( "/", "\\" ).Trim();
+			string path = File.ReadAllText( pathnameFile ).Replace( "\\", "/" ).Trim();
 			string absolutePath = Path.Combine( outputDirectory, path );
 
 			var file = new UnityFile()
@@ -57,15 +57,18 @@ public static class UnityPackageExtractor
 		var window = new ImportWindow( files );
 		window.Show();
 
-		window.OnConfirm += ( convertPrefabs, shouldConvertMaterials, shouldCreateTextures ) =>
+		window.OnConfirm += ( convertMaterials, createTextures, splitMeshes ) =>
 		{
 			ExtractFiles( files );
 
-			if ( shouldCreateTextures )
+			if ( createTextures )
 				UnityTextureConverter.CreateTextures( files );
 
-			if ( shouldConvertMaterials )
+			if ( convertMaterials )
 				UnityMaterialConverter.ConvertUnityMaterials( files );
+
+			if ( splitMeshes )
+				MeshSplitterIntegrator.SplitMeshes( files );
 
 			DeleteTempPath( tempPath );
 			PromptRestart();

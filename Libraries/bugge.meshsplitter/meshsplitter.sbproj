@@ -12,13 +12,13 @@
   "IsStandaloneOnly": false,
   "Metadata": {
     "Compiler": {
-      "RootNamespace": "Sandbox",
+      "RootNamespace": "Bugge.MeshSplitter",
       "DefineConstants": "SANDBOX",
       "NoWarn": "1701;1702;1591;",
       "WarningsAsErrors": "",
       "TreatWarningsAsErrors": false,
       "Nullables": false,
-      "ReleaseMode": "Debug",
+      "ReleaseMode": "Release",
       "AssemblyReferences": [],
       "ReplacementDirectives": {
         ".Server.cs": "SERVER"

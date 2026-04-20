@@ -7,7 +7,9 @@ namespace Bugge.UnityImporter;
 public class ImportWindow : Window
 {
 	/// <summary>
-	/// 
+	/// Bool: Convert Materials<br/>
+	/// Bool: Create Textures
+	/// Bool: Split Meshes<br/>
 	/// </summary>
 	public event Action<bool, bool, bool> OnConfirm;
 	public event Action OnCancel;
@@ -113,9 +115,15 @@ public class ImportWindow : Window
 		var convertRow = layout.AddRow();
 		convertRow.Spacing = 10;
 
-		// var prefabToggle = convertRow.Add( new Checkbox( "Convert Prefabs" ) );
+		var prefabToggle = convertRow.Add( new Checkbox( "Convert Prefabs" ) );
 		var materialsToggle = convertRow.Add( new Checkbox( "Convert Materials" ) );
 		// var textureToggle = convertRow.Add( new Checkbox( "Convert Textures" ) );
+
+		Checkbox splitMeshesToggle = null;
+		if ( MeshSplitterIntegrator.IsAvailable() )
+			splitMeshesToggle = convertRow.Add( new Checkbox( "Split Meshes" ) );
+
+		// MeshSplitterIntegrator.CallMeshSplitter();
 
 		// Buttons
 		var btnRow = layout.AddRow();
@@ -126,10 +134,10 @@ public class ImportWindow : Window
 
 		confirmBtn.Clicked = () =>
 		{
-			// bool convertPrefabs = prefabToggle.Value;
 			bool convertMaterials = materialsToggle.Value;
-			// bool convertTextures = textureToggle.Value;
-			OnConfirm?.Invoke( false, convertMaterials, false );
+			bool splitMeshes = splitMeshesToggle?.Value ?? false;
+
+			OnConfirm?.Invoke( convertMaterials, false, splitMeshes );
 			Close();
 		};
 
